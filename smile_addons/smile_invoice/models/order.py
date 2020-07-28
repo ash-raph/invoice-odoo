@@ -11,4 +11,3 @@ class Order(models.Model):
         if self.env.user.validation_threshold < self.amount_total:
             raise UserError("Sorry You don't have right to confirm this order")
         return super(Order, self).action_confirm()
-

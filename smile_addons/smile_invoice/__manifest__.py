@@ -19,6 +19,9 @@
     'data': [
         # Security
         'security/ir.model.access.csv',
+
+        # views
+        'views/invoice_view.xml',
     ],
 
 }
