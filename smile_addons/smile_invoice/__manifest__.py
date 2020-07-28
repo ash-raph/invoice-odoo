@@ -15,11 +15,10 @@
     "installable": True,
     "active": True,
 
-    'depends': ['base', 'sale'],
+    'depends': ['base', 'sale_management', 'account'],
     'data': [
         # Security
         'security/ir.model.access.csv',
     ],
-
 
 }
