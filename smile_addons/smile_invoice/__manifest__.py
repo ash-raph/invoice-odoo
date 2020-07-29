@@ -22,6 +22,9 @@
 
         # views
         'views/invoice_view.xml',
-    ],
 
+        # data
+        'data/sale_data.xml',
+        'data/invoice_data.xml',
+    ],
 }

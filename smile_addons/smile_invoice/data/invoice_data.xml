@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="invoice_1" model="account.move">
+            <field name="type">out_invoice</field>
+            <field name="partner_id" ref="base.res_partner_12"/>
+            <field name="invoice_user_id" ref="base.user_root"/>
+            <field name="invoice_payment_term_id" ref="account.account_payment_term_end_following_month"/>
+            <field name="invoice_date" eval="time.strftime('%Y-%m')+'-01'"/>
+            <field name="invoice_line_ids" eval="[
+                (0, 0, {'product_id': ref('product.consu_delivery_02'), 'price_unit': 642.0, 'quantity': 2}),
+            ]"/>
+        </record>
+    </data>
+</odoo>
