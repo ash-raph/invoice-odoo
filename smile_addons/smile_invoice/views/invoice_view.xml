@@ -6,14 +6,18 @@
         <field name="inherit_id" ref="account.view_move_form"/>
         <field name="arch" type="xml">
 
-            <xpath expr="//header" position="inside">
-                <button name="action_account" string="Accounting" class="oe_highlight"
+            <xpath expr="////button[@name='action_invoice_sent']" position="before">
+                <button name="action_wait_validation" string="Wait for validation" class="oe_highlight"
                         type="object" groups="account.group_account_invoice"
                         attrs="{'invisible': [('state', '!=', 'draft')]}"/>
             </xpath>
 
             <xpath expr="//button[@name='action_post']" position="attributes">
-                <attribute name="attrs">{'invisible': [('state', '!=', 'accounting')]}</attribute>
+                <attribute name="attrs">{'invisible': [('state', '!=', 'wait_for_validation')]}</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='state']" position="attributes">
+                <attribute name="statusbar_visible">draft,wait_for_validation,post</attribute>
             </xpath>
 
         </field>
