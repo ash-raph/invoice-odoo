@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# (C) 2010 Smile (<http://www.smile.fr>)
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+# (C) 2020 Smile (<http://www.smile.fr>)
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
 {
     "name": "Audit Trail",
@@ -8,9 +8,12 @@
     "sequence": 100,
     "category": "Tools",
     "author": "Smile",
-    "license": 'AGPL-3',
-    "website": 'http://www.smile.fr',
-    "description": """""",
+    "license": 'LGPL-3',
+    "description": """
+This module lets administrator track every user operation on
+all the objects of the system
+(for the moment, only create, write and unlink methods).
+    """,
     "depends": [
         'base',
     ],
@@ -18,9 +21,6 @@
         'security/ir.model.access.csv',
         'views/audit_rule_view.xml',
         'views/audit_log_view.xml',
-    ],
-    "test": [
-        'test/audit_test.yml',
     ],
     'installable': True,
     'auto_install': False,

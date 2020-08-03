@@ -30,9 +30,9 @@
                 <search string="Audit Rules">
                     <filter name="active" string="Active Rules" domain="[('active','=',True)]"/>
                     <separator/>
-                    <filter string="Log Creation" domain="[('log_create','=',True)]"/>
-                    <filter string="Log Update" domain="[('log_write','=',True)]"/>
-                    <filter string="Log Deletion" domain="[('log_unlink','=',True)]"/>
+                    <filter name="log_create" string="Log Creation" domain="[('log_create','=',True)]"/>
+                    <filter name="log_write" string="Log Update" domain="[('log_write','=',True)]"/>
+                    <filter name="log_unlink" string="Log Deletion" domain="[('log_unlink','=',True)]"/>
                     <field name="name"/>
                     <field name="model_id"/>
                 </search>
@@ -43,7 +43,6 @@
             <field name="name">Rules</field>
             <field name="res_model">audit.rule</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="view_type">form</field>
             <field name="view_mode">tree</field>
             <field name="search_view_id" ref="view_audit_rule_search"/>
             <field name="context">{'search_default_active': True, 'active_test': False}</field>

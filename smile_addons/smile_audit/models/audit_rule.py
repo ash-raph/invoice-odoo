@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# (C) 2010 Smile (<http://www.smile.fr>)
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+# (C) 2020 Smile (<http://www.smile.fr>)
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
 import logging
 
@@ -38,13 +38,11 @@ class AuditRule(models.Model):
          'You cannot define another: please edit the existing one.'),
     ]
 
-    @api.one
     def _add_action(self):
         if not self.action_id:
             vals = {
                 'name': _('View audit logs'),
                 'res_model': 'audit.log',
-                'src_model': self.model_id.model,
                 'binding_model_id': self.model_id.id,
                 'domain': "[('model_id','=', %s), "
                           "('res_id', '=', active_id), ('method', 'in', %s)]"
@@ -53,7 +51,6 @@ class AuditRule(models.Model):
             }
             self.action_id = self.env['ir.actions.act_window'].create(vals)
 
-    @api.one
     def _activate(self):
         if self._context and \
                 self._context.get('activation_in_progress'):
@@ -61,12 +58,10 @@ class AuditRule(models.Model):
         self = self.with_context(activation_in_progress=True)
         self._add_action()
 
-    @api.one
     def _deactivate(self):
         if self.action_id:
             self.action_id.unlink()
 
-    @api.multi
     def update_rule(self, force_deactivation=False):
         for rule in self:
             if rule.active and not force_deactivation:
@@ -75,7 +70,7 @@ class AuditRule(models.Model):
                 rule._deactivate()
         return True
 
-    _methods = ['_create', '_write', 'unlink']
+    _methods = ['create', 'write', '_write', 'unlink']
 
     @api.model
     @tools.ormcache()
@@ -91,7 +86,7 @@ class AuditRule(models.Model):
                  if getattr(rule, 'log_%s' % method.replace('_', ''))}
                 for rule in rules}
 
-    @api.model_cr
+    @api.model
     def _register_hook(self, ids=None):
         self = self.sudo()
         updated = False
@@ -126,7 +121,6 @@ class AuditRule(models.Model):
             self.pool.signal_changes()
         return rule
 
-    @api.multi
     def write(self, vals):
         res = super(AuditRule, self).write(vals)
         self.update_rule()
@@ -134,7 +128,6 @@ class AuditRule(models.Model):
             self.pool.signal_changes()
         return res
 
-    @api.multi
     def unlink(self):
         self.update_rule(force_deactivation=True)
         return super(AuditRule, self).unlink()
@@ -166,7 +159,6 @@ class AuditRule(models.Model):
                 del data[res_id]
         return data
 
-    @api.multi
     def log(self, method, old_values=None, new_values=None):
         self.ensure_one()
         if old_values or new_values:
