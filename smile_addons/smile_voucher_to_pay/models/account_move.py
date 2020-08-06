@@ -9,12 +9,14 @@ class Move(models.Model):
     state = fields.Selection(selection_add=[('wait_for_validation', 'Wait for validation'), ('posted', )])
 
     def action_post(self):
-        if self.env.user.validation_threshold < self.amount_total:
-            raise UserError("Sorry You don't have right to confirm this invoice")
-        self.validator_id = self.env.user
-        return super(Move, self).action_post()
+        for row in self:
+            if row.env.user.validation_threshold < row.amount_total:
+                raise UserError("Sorry You don't have right to confirm this invoice")
+            row.validator_id = row.env.user
+            super(Move, row).action_post()
 
     def action_wait_validation(self):
-        self.write(
-            {'state': 'wait_for_validation'}
-        )
+        for row in self:
+            row.write(
+                {'state': 'wait_for_validation'}
+            )

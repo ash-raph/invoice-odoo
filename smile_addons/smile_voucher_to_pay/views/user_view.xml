@@ -6,8 +6,10 @@
         <field name="inherit_id" ref="base.view_users_form"/>
         <field name="arch" type="xml">
 
-            <xpath expr="//page[@name='access_rights']" position="inside">
-                <field name="validation_threshold" string="validation threshold"/>
+            <xpath expr="//group[@name='preferences']" position="before">
+                <group string="Validation threshold" name="validation_threshold">
+                    <field name="validation_threshold" string="validation threshold"/>
+                </group>
             </xpath>
 
         </field>

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Smile Invoice",
+    'name': "Smile Voucher to pay",
     'description': """
-        This project was created to manage invoicing
+        This project was created to manage orders and purchase
     """,
 
-    'author': "Invoice",
-    'website': "http://www.yourcompany.com",
+    'author': "Smile",
+    'website': "http://www.smile.com",
 
     'category': 'Uncategorized',
     "license": 'LGPL-3',
@@ -15,7 +15,7 @@
     "installable": True,
     "active": True,
 
-    'depends': ['base', 'sale_management', 'account'],
+    'depends': ['base', 'purchase', 'account'],
     'data': [
         # Security
         'security/ir.model.access.csv',
@@ -23,9 +23,5 @@
         # views
         'views/invoice_view.xml',
         'views/user_view.xml',
-
-        # data
-        'data/sale_data.xml',
-        'data/invoice_data.xml',
     ],
 }
